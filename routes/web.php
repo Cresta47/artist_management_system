@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MusicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("user/profile/change_password", [UserController::class, "changePassword"])->name("user.profile.change_password");
 
     Route::resource("artist", ArtistController::class);
+    Route::resource("artist.music", MusicController::class);
 
 
 

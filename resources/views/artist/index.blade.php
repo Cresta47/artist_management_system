@@ -91,6 +91,16 @@
                                                         target="_blank">Edit</a>
                                                 </div>
 
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ route('artist.music.index', $artist->id) }}" class="menu-link px-3"
+                                                        target="_blank">Songs List</a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ route('artist.music.create', $artist->id) }}" class="menu-link px-3"
+                                                        target="_blank">Create A  Song</a>
+                                                </div>
+
 
                                                 <div class="menu-item px-3">
                                                     <a href="#" class="menu-link px-3 delete_row"

@@ -13,7 +13,7 @@ class MusicFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,12 @@ class MusicFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'title' => ['required', 'string', 'max:255'],
+            'album_name' => ['required', 'string', "max:255"],
+            'genre' => ['required', 'string'],
         ];
+
+        return $rules;
     }
 }

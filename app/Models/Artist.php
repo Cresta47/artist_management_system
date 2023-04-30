@@ -42,4 +42,9 @@ class Artist extends Model
         ];
         return $genders[$this->gender];
     }
+
+    public function music()
+    {
+        return $this->hasMany(Music::class);
+    }
 }
