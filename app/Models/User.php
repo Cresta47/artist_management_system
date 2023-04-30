@@ -51,7 +51,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ["full_name", "role_text"];
+    protected $appends = ["full_name", "role_text", "gender_text"];
 
     public function getFullNameAttribute()
     {
@@ -66,6 +66,16 @@ class User extends Authenticatable
             "artist" => "Artist",
         ];
         return $roles[$this->role];
+    }
+
+    public function getGenderTextAttribute()
+    {
+        $genders = [
+            "m" => "Male",
+            "f" => "Female",
+            "o" => "Others",
+        ];
+        return $genders[$this->gender];
     }
 
 }

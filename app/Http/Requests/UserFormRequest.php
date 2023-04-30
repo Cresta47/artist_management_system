@@ -28,7 +28,7 @@ class UserFormRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user'],
             'phone' => ['required', 'string'],
-            'dob' => ['required', 'date'],
+            'dob' => ['required', 'date_format:Y-m-d H:i:s', "before:now"],
             'gender' => ['required', 'string'],
             'address' => ['required', 'string', 'max:255'],
             'password' => "min:8,required_with:confirm_password|same:confirm_password",

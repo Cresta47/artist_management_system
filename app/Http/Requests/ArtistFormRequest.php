@@ -13,7 +13,7 @@ class ArtistFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,15 @@ class ArtistFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'dob' => ['required', 'date_format:Y-m-d H:i:s', "before:now" ],
+            'gender' => ['required', 'string'],
+            'address' => ['required', 'string', 'max:255'],
+            'first_release_year' => ['required', "digits:4", "date_format:Y", "before_or_equal:" . date("Y")],
+            'no_of_albums_released' => ['required', 'string', 'max:255'],
         ];
+
+        return $rules;
     }
 }

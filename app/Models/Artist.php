@@ -19,4 +19,27 @@ class Artist extends Model
         "first_release_year",
         "no_of_albums_released",
     ];
+
+    protected $appends = ["gender_text"];
+
+
+    public function getRoleTextAttribute()
+    {
+        $roles = [
+            "super_admin" => "Super Admin",
+            "artist_manager" => "Artist Manager",
+            "artist" => "Artist",
+        ];
+        return $roles[$this->role];
+    }
+
+    public function getGenderTextAttribute()
+    {
+        $genders = [
+            "m" => "Male",
+            "f" => "Female",
+            "o" => "Others",
+        ];
+        return $genders[$this->gender];
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
@@ -27,6 +28,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource("user", UserController::class);
     Route::get("user/profile/show", [UserController::class, "profile"])->name("user.profile");
     Route::post("user/profile/change_password", [UserController::class, "changePassword"])->name("user.profile.change_password");
+
+    Route::resource("artist", ArtistController::class);
+
 
 
 
