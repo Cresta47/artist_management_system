@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource("user", UserController::class);
+    Route::get("user/profile/show", [UserController::class, "profile"])->name("user.profile");
+    Route::post("user/profile/change_password", [UserController::class, "changePassword"])->name("user.profile.change_password");
+
+
+
+
+});
+
