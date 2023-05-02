@@ -50,14 +50,16 @@
                     </div>
                 </div>
 
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(1) == "user") ? "active" : "" }}" href="{{ route('user.index') }}">
-                        <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">User</span>
-                    </a>
-                </div>
+                @if(auth()->user()->role == "super_admin")
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(1) == "user") ? "active" : "" }}" href="{{ route('user.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">User</span>
+                        </a>
+                    </div>
+                @endif
 
                 <div class="menu-item">
                     <a class="menu-link {{ (request()->segment(1) == "artist") ? "active" : "" }} " href="{{ route('artist.index') }}">
@@ -68,7 +70,7 @@
                     </a>
                 </div>
 
-               
+
 
 
 

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MusicFileValidation;
 use App\Http\Requests\MusicFormRequest;
+use App\Imports\MusicImport;
 use App\Models\Artist;
 use App\Models\Music;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MusicController extends Controller
 {
@@ -95,6 +98,20 @@ class MusicController extends Controller
             return response()->json(['status' => false, "message" => "Something went wrong."]);
         }
 
+    }
+
+    public function showImportMusicForm($artistId)
+    {
+        $artist = Artist::whereId($artistId)->first();
+        return view("artist.music.import", compact('artist'));
+    }
+
+    public function importMusic(MusicFileValidation $request, $artistId)
+    {
+        $artist = Artist::whereId($artistId)->first();
+        Excel::import(new MusicImport, $request->file);
+
+        return redirect()->route('artist.music.index', $artist->id)->withSuccess("Music  created for artist " . $artist->name ." successfully");
     }
 
 

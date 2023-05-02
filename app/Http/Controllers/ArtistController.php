@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class ArtistController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("super_admin_or_artist_manager")->only(["index"]);
+        $this->middleware("artist_manager")->except(["index"]);
+    }
     public function index()
     {
         $artists = Artist::latest()->paginate(20);

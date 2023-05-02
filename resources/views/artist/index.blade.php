@@ -35,9 +35,11 @@
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>
-                <a href="{{ route('artist.create') }}" class="btn btn-sm fw-bold btn-primary">
-                    Create
-                </a>
+                @if(auth()->user()->role == "artist_manager")
+                    <a href="{{ route('artist.create') }}" class="btn btn-sm fw-bold btn-primary">
+                        Create
+                    </a>
+                @endif
 
             </div>
             <!--end::Toolbar container-->
@@ -86,26 +88,31 @@
                                             </a>
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4"
                                                 data-kt-menu="true">
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('artist.edit', $artist->id) }}" class="menu-link px-3"
-                                                        target="_blank">Edit</a>
-                                                </div>
 
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('artist.music.index', $artist->id) }}" class="menu-link px-3"
-                                                        target="_blank">Songs List</a>
-                                                </div>
+                                                @if(auth()->user()->role == "artist_manager")
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('artist.edit', $artist->id) }}" class="menu-link px-3"
+                                                            target="_blank">Edit</a>
+                                                    </div>
 
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('artist.music.create', $artist->id) }}" class="menu-link px-3"
-                                                        target="_blank">Create A  Song</a>
-                                                </div>
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" class="menu-link px-3 delete_row"
+                                                            data-id="{{ $artist->id }}">Delete</a>
+                                                    </div>
 
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('artist.music.import', $artist->id) }}" class="menu-link px-3"
+                                                            target="_blank">Import Music</a>
+                                                    </div>
 
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3 delete_row"
-                                                        data-id="{{ $artist->id }}">Delete</a>
-                                                </div>
+                                                @endif
+
+                                                @if(auth()->user()->role == "artist_manager" || auth()->user()->role == "super_admin")
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('artist.music.index', $artist->id) }}" class="menu-link px-3"
+                                                            target="_blank">Songs List</a>
+                                                    </div>
+                                                @endif
 
                                             </div>
                                         </td>

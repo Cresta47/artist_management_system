@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ArtistManager;
+use App\Http\Middleware\SuperAdmin;
+use App\Http\Middleware\SuperAdminOrArtistManager;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,5 +66,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        "super_admin" => SuperAdmin::class,
+        "super_admin_or_artist_manager" => SuperAdminOrArtistManager::class,
+        "artist_manager" => ArtistManager::class,
     ];
 }
