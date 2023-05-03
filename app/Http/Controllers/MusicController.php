@@ -26,7 +26,6 @@ class MusicController extends Controller
 
         $artist = Artist::where("id", $artistId)->first();
 
-        dd($artist->toArray());
 
         if(isset($artist)) {
             $songs = Music::where("artist_id", $artistId)->paginate(10);
