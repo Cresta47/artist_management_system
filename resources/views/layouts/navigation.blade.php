@@ -77,7 +77,8 @@
                 @if(auth()->user()->role == "artist")
 
                     <div class="menu-item">
-                        <a class="menu-link {{ (request()->segment(1) == "music") ? "active" : "" }} " href="{{ route('artist.music.index', auth()->user()->id) }}">
+                        <a class="menu-link {{ (request()->segment(1) == "music") ? "active" : "" }} "
+                            href="{{ route('artist.music.index', auth()->user()->artist->id) }}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
