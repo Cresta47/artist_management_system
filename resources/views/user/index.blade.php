@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Admin
+    Users
 @endsection
 
 @section('content')
@@ -37,6 +37,7 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="users-table">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>SN</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -46,6 +47,7 @@
                             <tbody class="fw-semibold text-gray-600">
                                 @forelse($users as $user)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ isset($user->role) ? $user->role_text : '' }}</td>
@@ -95,7 +97,6 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#users-table").DataTable({});
 
             $(document).on('click', '.delete_row', function(e) {
                 e.preventDefault();

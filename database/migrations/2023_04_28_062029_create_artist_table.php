@@ -19,8 +19,8 @@ return new class extends Migration
             $table->dateTime("dob");
             $table->enum("gender", ["m", "f", "o"]);
             $table->string("address");
-            $table->year("first_release_year");
-            $table->integer("no_of_albums_released");
+            $table->year("first_release_year")->nullable();
+            $table->integer("no_of_albums_released")->nullable();
             $table->timestamps();
         });
     }

@@ -55,6 +55,7 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="artist-table">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>SN</th>
                                     <th>Name</th>
                                     <th>DOB</th>
                                     <th>Gender</th>
@@ -67,6 +68,7 @@
                             <tbody class="fw-semibold text-gray-600">
                                 @forelse($artists as $artist)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $artist->name }}</td>
                                         <td>{{ $artist->dob }}</td>
                                         <td>{{ isset($artist->gender) ? $artist->gender_text : "" }}</td>

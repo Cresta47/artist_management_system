@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Artist;
 use App\Http\Middleware\ArtistManager;
 use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\SuperAdminOrArtistManager;
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         "super_admin" => SuperAdmin::class,
         "super_admin_or_artist_manager" => SuperAdminOrArtistManager::class,
         "artist_manager" => ArtistManager::class,
+        "artist" => Artist::class,
     ];
 }

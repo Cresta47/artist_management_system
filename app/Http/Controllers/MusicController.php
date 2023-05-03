@@ -13,19 +13,31 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MusicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("artist")->except(["showImportMusicForm", "importMusic", "index"]);
+        $this->middleware("artist_manager")->only(["showImportMusicForm", "importMusic"]);
+    }
+
     public function index($artistId)
     {
+       $this->checkAccessForArtist($artistId);
+
         $artist = Artist::where("id", $artistId)->first();
 
         if(isset($artist)) {
-            $songs = Music::where("artist_id", $artistId)->latest()->get();
+            $songs = Music::where("artist_id", $artistId)->paginate(10);
             return view('artist.music.index', compact('songs', "artist"));
         }
 
     }
 
+
+
     public function create($artistId)
     {
+        $this->checkAccessForArtist($artistId);
+
         $artist = Artist::where("id", $artistId)->first();
 
         if(isset($artist)) {
@@ -35,6 +47,9 @@ class MusicController extends Controller
 
     public function store(MusicFormRequest $request, $artistId)
     {
+        $this->checkAccessForArtist($artistId);
+
+
         $artist = Artist::where("id", $artistId)->first();
 
         if(isset($artist)) {
@@ -48,6 +63,8 @@ class MusicController extends Controller
 
     public function edit($artistId, $musicId)
     {
+        $this->checkAccessForArtist($artistId);
+
         $artist  = Artist::where("id", $artistId)->first();
         $song = Music::whereId($musicId)->where("artist_id", $artistId)->first();
 
@@ -58,6 +75,8 @@ class MusicController extends Controller
 
     public function update(MusicFormRequest $request, $artistId, $musicId)
     {
+        $this->checkAccessForArtist($artistId);
+
         $validatedData = $request->validated();
         $artist  = Artist::where("id", $artistId)->first();
         $song = Music::whereId($musicId)->where("artist_id", $artistId)->first();
@@ -72,7 +91,9 @@ class MusicController extends Controller
         return redirect()->route('artist.music.index', $artist->id)->withSuccess("Song updated successfully");
     }
 
-    public function destroy($artistId, $songId) {
+    public function destroy($artistId, $songId)
+    {
+        $this->checkAccessForArtist($artistId);
 
         $artist = Artist::whereId($artistId)->first();
 
@@ -112,6 +133,15 @@ class MusicController extends Controller
         Excel::import(new MusicImport, $request->file);
 
         return redirect()->route('artist.music.index', $artist->id)->withSuccess("Music  created for artist " . $artist->name ." successfully");
+    }
+
+
+    protected function checkAccessForArtist($artistId)
+    {
+        if(auth()->user()->role == "artist" && auth()->user()->id != $artistId) {
+            return abort(403);
+        }
+
     }
 
 

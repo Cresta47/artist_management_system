@@ -2,7 +2,6 @@
     @php $perpage = 20; @endphp
     <div class="d-flex flex-stack flex-wrap pt-10">
         <div class="fs-6 fw-semibold text-gray-700">
-            Showing {{ ($paginator->currentPage() - 1) * $perpage + 1 }} to {{ $paginator->currentPage() * $perpage }} of {{ $paginator->total() }} entries
         </div>
         <ul class="pagination">
             @if ($paginator->onFirstPage())
@@ -24,7 +23,7 @@
                 if($start < 1) {
                     $start = 1;
                     $end += 1;
-                } 
+                }
                 if($end >= $paginator->lastPage() ) $end = $paginator->lastPage();
             @endphp
 

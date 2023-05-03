@@ -32,9 +32,11 @@
 					</ul>
 					<!--end::Breadcrumb-->
 				</div>
-                <a href="{{route('artist.music.create', $artist->id)}}" class="btn btn-sm fw-bold btn-primary">
-                    Create
-                </a>
+                @if(auth()->user()->role == "artist")
+                    <a href="{{route('artist.music.create', $artist->id)}}" class="btn btn-sm fw-bold btn-primary">
+                        Create
+                    </a>
+                @endif
 
 			</div>
 			<!--end::Toolbar container-->
@@ -50,6 +52,7 @@
 						<table class="table align-middle table-row-dashed fs-6 gy-5" id="users-table">
 							<thead>
 								<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>SN</th>
 									<th>Title</th>
 									<th>Album Name</th>
 									<th>Genre</th>
@@ -59,6 +62,7 @@
 							<tbody class="fw-semibold text-gray-600">
 								@forelse($songs as $song)
 									<tr>
+                                        <td>{{ $loop->iteration }}</td>
 										<td>{{ $song->title }}</td>
 										<td>{{ $song->album_name }}</td>
 										<td>{{ isset($song->genre) ? $song->genre_text : "" }}</td>
@@ -73,7 +77,10 @@
 												</span>
 												</a>
 												<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
-														<div class="menu-item px-3">
+
+                                                    @if(auth()->user()->role == "artist")
+
+                                                        <div class="menu-item px-3">
 															<a href="{{ route('artist.music.edit', [$artist->id, $song->id]) }}" class="menu-link px-3" target="_blank">Edit</a>
 														</div>
 
@@ -83,6 +90,7 @@
                                                                 data-delete-url="{{ route('artist.music.destroy', [$artist->id, $song->id]) }}"
                                                                 data-artist-id={{ $artist->id }} data-id="{{$song->id}}">Delete</a>
 														</div>
+                                                    @endcan
 
 												</div>
 										</td>
@@ -94,6 +102,8 @@
 								@endforelse
 							</tbody>
 						</table>
+                        @include('layouts.pagination', [ 'paginator' => $songs ])
+
 					</div>
 				</div>
 			</div>
@@ -106,7 +116,6 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-			$("#users-table").DataTable({});
 
             $(document).on('click', '.delete_row', function(e) {
                 e.preventDefault();

@@ -34,9 +34,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("user/profile/change_password", [UserController::class, "changePassword"])->name("user.profile.change_password");
 
     Route::resource("artist", ArtistController::class);
+
     Route::resource("artist.music", MusicController::class, );
     Route::get("artist/{artistId}/import/music/csv", [MusicController::class, "showImportMusicForm"])->name("artist.music.import");
     Route::post("artist/{artistId}/import/music/csv", [MusicController::class, "importMusic"])->name("artist.music.import.store");
+
+    // Route::get("music", [MusicController::class, "myMusicIndex"])->name("my.music.index");
 
 
 

@@ -61,14 +61,31 @@
                     </div>
                 @endif
 
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(1) == "artist") ? "active" : "" }} " href="{{ route('artist.index') }}">
-                        <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Artist</span>
-                    </a>
-                </div>
+                @if(auth()->user()->role == "super_admin" || auth()->user()->role == "artist_manager")
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(1) == "artist") ? "active" : "" }} " href="{{ route('artist.index') }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Artist</span>
+                        </a>
+                    </div>
+
+                @endif
+
+                @if(auth()->user()->role == "artist")
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(1) == "music") ? "active" : "" }} " href="{{ route('artist.music.index', auth()->user()->id) }}">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Music</span>
+                        </a>
+                    </div>
+                @endif
+
 
 
 

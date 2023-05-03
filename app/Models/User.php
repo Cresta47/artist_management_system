@@ -78,4 +78,9 @@ class User extends Authenticatable
         return $genders[$this->gender];
     }
 
+    public function artist()
+    {
+        return $this->hasOne(Artist::class);
+    }
+
 }

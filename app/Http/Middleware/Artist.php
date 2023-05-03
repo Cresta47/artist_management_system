@@ -16,6 +16,10 @@ class Artist
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (auth()->user()->role == "artist") {
+            return $next($request);
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 }

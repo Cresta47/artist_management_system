@@ -18,6 +18,7 @@ class Artist extends Model
         "address",
         "first_release_year",
         "no_of_albums_released",
+        "user_id"
     ];
 
     protected $appends = ["gender_text"];
