@@ -21,6 +21,7 @@ class MusicController extends Controller
 
     public function index($artistId)
     {
+        dd("here");
        $this->checkAccessForArtist($artistId);
 
         $artist = Artist::where("id", $artistId)->first();
