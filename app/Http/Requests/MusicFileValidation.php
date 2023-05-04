@@ -25,7 +25,7 @@ class MusicFileValidation extends FormRequest
     {
 
         return [
-            "file" => ["required", "mimetypes:text/csv,text/plain,
+            "file" => ["required", "max:5120", "mimetypes:text/csv,text/plain,
                 application/csv,text/comma-separated-values,text/anytext,application/octet-stream,application/txt"],
         ];
     }
