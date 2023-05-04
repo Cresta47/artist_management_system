@@ -122,8 +122,8 @@
                         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 
                             <span>
-                                Dont Have a account
-                                <a href="{{ route('register') }}">Register Here</a>
+                                Already registered, Go to
+                                <a href="{{ route('login') }}">Login</a>
                             </span>
                         </div>
                     </div>
